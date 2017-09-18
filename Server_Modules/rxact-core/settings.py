@@ -31,12 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'drug_interaction.apps.DrugInteractionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
     # 'django.contrib.staticfiles',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +51,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'rxact.urls'
+ROOT_URLCONF = 'rxact-core.urls'
+
+
+GRAPHENE = {
+    'SCHEMA': 'rxact-core.schema.schema'
+}
+
 
 TEMPLATES = [
     {
@@ -67,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'rxact.wsgi.application'
+WSGI_APPLICATION = 'rxact-core.wsgi.application'
 
 
 # Database
