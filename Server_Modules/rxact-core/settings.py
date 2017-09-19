@@ -12,15 +12,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+# This import is used by Django. Do not Remove.
+from .secret_settings import SECRET_KEY
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g5#&8nd&4g_11y@np3d$hq)-*w!9fya698lef)^jhxo*2+ppql'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,9 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
-    # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'graphene_django',
 ]
 
