@@ -29,10 +29,12 @@ var Router = {
         return this;
     },
 
-    // TODO: Implement route change monitoring
+    listen: function() {
+        window.onpopstate = (event) => {this.resolveRoute()};
+    },
 
     navigate: function(path) {
-        let path = cleanSlashes(path) || '';
+        let path = path ? cleanSlashes(path) : '';
         history.pushState(null, null, this.root + path);
 
         return this;
