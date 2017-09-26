@@ -3,7 +3,7 @@
 
 from graphene import ObjectType, Schema
 
-import Server_Modules.drug_interaction.schema as drug_interaction_schema
+import drug_interaction.schema as drug_interaction_schema
 
 
 class Query(drug_interaction_schema.Query, ObjectType):

@@ -12,7 +12,7 @@ class Drug(models.Model):
 
     More RxNorm info: https://www.nlm.nih.gov/research/umls/rxnorm/overview.html
     """
-    name = models.CharField(max_length=100)
+    name = models.CharField(default='', max_length=100)
     rxcui = models.IntegerField(primary_key=True)
     interactions = models.ManyToManyField('self', through='DrugInteraction', symmetrical=False,
                                           related_name='interacts_with+')
@@ -25,12 +25,15 @@ class Drug(models.Model):
         :param description: The interaction description.
         :param symmetric: Whether or not the relationship is symmetric.
         """
-        DrugInteraction.objects.create(from_drug=self, to_drug=drug, description=description)
+        interaction = DrugInteraction.objects.get_or_create(from_drug=self, to_drug=drug,
+                                                            description=description)
 
         if symmetric:
             # Pass symmetric=False since we just made the other half of the
             # relationship.
             drug.add_interaction(self, description, False)
+
+        return interaction
 
     def delete_interaction(self, drug, symmetric=True):
         """
@@ -43,7 +46,7 @@ class Drug(models.Model):
         if symmetric:
             # Pass symmetric=False since we just deleted the other half of the
             # relationship.
-            drug.add_interaction(self, False)
+            drug.delete_interaction(self, False)
 
     def __str__(self):
         return self.name
