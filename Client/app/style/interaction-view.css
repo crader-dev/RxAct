@@ -1,3 +1,31 @@
-ul {
-    color: white
+#sidenav {
+    top: 0;
+    bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+    position: fixed;
+    border-right: 1px solid #333333;
+    text-align: center;
+}
+
+#sidenav a {
+    margin-top: 10px;
+    
+}
+
+#sidenav > h1 {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    color: #B82332;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+#graphArea {
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    background: #b1acac;
 }

@@ -2,36 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>RxAct</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    
     <link rel="stylesheet" type="text/css" href="style/interaction-view.css"/>
 
-    <script src="https://d3js.org/d3.v4.min.js" async></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <script src "util/simple-logger.js"></script>
     <script src="util/simple-router.js"></script>
     <script src="util/rxact-api-caller.js"></script>
     <script src="components/drug-graph.js"></script>
-    <script src="app-init.js"></script>
+    <script src="components/drug-list-modal.js" defer></script>
+    <script src="components/drug-graph.js" defer></script>
+    <script src="app-init.js" defer></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous" defer></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"defer></script>
 </head>
 <body>
-    <div id='controlArea'>
-        <nav>
-            <ul id='topNav'>
-                <li><a href=''>Drug List</a></li>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="sidebar-nav col-sm-3 col-md-2 col-lg-2 col-xl-2 bg-faded sidebar" id="sidenav">
+                <h1 class="navbar-brand mb-0">RxAct</h1>
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#drugListModal">
+                            Modify Drug List
+                    </a>
+                </li>
+
+                <!-- Hidden until functionality is implemented -->
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="">
+                        Profile
+                    </a>
+                </li>
+
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="">
+                        Settings
+                    </a>
+                </li>
             </ul>
 
-            <ul id='bottomNav' hidden>
-                <li><a href=''>Profile</a></li>
-                <li><a href=''>Settings</a></li>
-            </ul>
-        </nav>
+            <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2" id="visArea">
+                
+            </div>
+        </div>
     </div>
 
-    <div id='graphArea'>
-        <button onclick="getDrugInteractions(['Simvastatin', 'bosentan'], alert)">
-            TEST
-        </button>
-    </div>
+    <!-- Drug List Modal -->
+    <div class="modal fade" id="drugListModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Drug List</h5>
+            </div>
+            <div class="modal-body">
+                <div id="drugListEntries">
+                    <!-- Populated by addDrugButton listener -->
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" id="addDrugButton" title="Add a new drug">+ Add</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="drugListCancelButton">Cancel</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" id="drugListSaveButton">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html>
