@@ -11,6 +11,7 @@ iso8601==0.1.12
 promise==2.0.2
 pytz==2017.2
 requests==2.18.4
+setproctitle==1.1.10
 singledispatch==3.4.0.3
 six==1.10.0
 typing==3.6.2
