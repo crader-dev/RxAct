@@ -48,9 +48,9 @@ http {
     }
 
     location / {
-      alias /webapps/RxAct/Client/app/;
+      root /webapps/RxAct/Client/app;
       # checks for static file, if not found proxy to app
-      try_files $uri.html @proxy_to_app;
+      try_files $uri @proxy_to_app;
     }
 
     location @proxy_to_app {
