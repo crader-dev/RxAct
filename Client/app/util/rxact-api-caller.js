@@ -2,39 +2,38 @@
 
 const RXACT_GRAPHQL_URL = location.href + '/graphql/';
 
-const RXACT_INTERACTION_QUERY_TEMPLATE = `query { \
-    drugInteractions(drugs: $drugList) {
+const RXACT_INTERACTION_QUERY_TEMPLATE = `query ($drugs: [String]!) { \
+    drugInteractions(drugs: $drugs) {
         description
-        from_drug {
+        fromDrug {
             name
         }
-        to_drug {
+        toDrug {
             name
         }
     }
  }`;
 
-function getDrugInteractions(drugList, callback) {
-    makeRxActInteractionCall({
+function getDrugInteractions(drugs, callback) {
+    let requestJson = JSON.stringify({
         query: RXACT_INTERACTION_QUERY_TEMPLATE,
-        variables: {drugList: drugList}
-    },
-    callback);
+        variables: {drugs: drugs}
+    });
+    makeRxActInteractionCall(requestJson, callback);
 }
 
 function makeRxActInteractionCall(requestJson, callback) {
     let xhttp = new XMLHttpRequest();
-    xhttp.responseType = 'json';
     xhttp.open('POST', RXACT_GRAPHQL_URL, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.setRequestHeader('Accept', 'application/json');
     xhttp.setRequestHeader('X-CSRFToken', getCSRFToken());
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            callback(xhttp.responseText);
+            callback(JSON.parse(xhttp.responseText));
         }
     }
-    xhttp.send(JSON.stringify(requestJson));
+    xhttp.send(requestJson);
 }
 
 function getCSRFToken() {
