@@ -1,44 +1,51 @@
 'use strict';
 
 var Logger = {
-    DEBUG: {rank: 0, text: 'DEBUG'},
-    INFO:  {rank: 1, text: 'INFO'},
-    WARN:  {rank: 2, text: 'WARNING'},
-    ERROR: {rank: 3, text: 'ERROR'},
+    DEBUG: {rank: 0, text: 'DEBUG',   handler: console.debug},
+    INFO:  {rank: 1, text: 'INFO',    handler: console.info},
+    WARN:  {rank: 2, text: 'WARNING', handler: console.warn},
+    ERROR: {rank: 3, text: 'ERROR',   handler: console.error},
 
-    minLevel: DEBUG,
+    minLevel: this.DEBUG,
 
     setLevel: function(level) {
-        validateLevel(level) ? 
-            this.level = level : 
-            this.warn('Tried to set invalid log level: ' + level);
+        this.validateLevel(level) ? 
+            this.minLevel = level : 
+            this.warn('Tried to set invalid log level: ' + level.text);
             
         return this;
     },
 
     logMessage: function(level, msg) {
-        if(validateLevel(level)) {
+        if(this.validateLevel(level)) {
             if (level.rank >= this.minLevel.rank) {
-                console.log(severity + ': ' + msg);
+                level.handler(level.text + ': ' + msg);
             }
         } else {
-            this.warn('Tried logging with invalud log level: ' + level);
+            this.warn('Tried logging with invalid log level: ' + level.text);
         }
 
         return this;
     },
 
-    debug: (msg) => {return this.logMessage(this.DEBUG, msg)},
+    debug: function(msg) {
+        return this.logMessage(this.DEBUG, msg)
+    },
 
-    info: (msg) =>  {return this.logMessage(this.INFO,  msg)},
+    info:function(msg) {
+        return this.logMessage(this.INFO,  msg)
+    },
 
-    warn: (msg) =>  {return this.logMessage(this.WARN,  msg)},
+    warn: function(msg) {
+        return this.logMessage(this.WARN,  msg)
+    },
 
-    error: (msg) => {return this.logMessage(this.ERROR, msg)},
+    error: function(msg) {
+        return this.logMessage(this.ERROR, msg)
+    },
 
     validateLevel: function(level) {
-        return (level == DEBUG || level == INFO || 
-                level == WARN  || level == ERROR);
+        return (level == this.DEBUG || level == this.INFO || 
+                level == this.WARN  || level == this.ERROR);
     }
-
 };
