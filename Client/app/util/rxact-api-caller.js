@@ -1,6 +1,6 @@
 'use strict';
 
-const RXACT_GRAPHQL_URL = location.href + '/graphql';
+const RXACT_GRAPHQL_URL = location.href + '/graphql/';
 
 const RXACT_INTERACTION_QUERY_TEMPLATE = `query { \
     drugInteractions(drugs: $drugList) {
