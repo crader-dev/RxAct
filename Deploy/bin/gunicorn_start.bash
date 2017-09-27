@@ -3,7 +3,7 @@
 # Courtesy of: http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
 
 NAME="RxAct"                                      # Name of the application
-DJANGODIR=/webapps/RxAct/hello                    # Django project directory
+DJANGODIR=/webapps/RxAct/Server_Modules           # Django project directory
 SOCKFILE=/webapps/RxAct/run/gunicorn.sock         # we will communicate using this unix socket
 USER=rxact                                        # the user to run as
 GROUP=webapps                                     # the group to run as
@@ -24,7 +24,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Start your Django Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
-exec ../bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+exec /usr/local/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --name $NAME \
   --workers $NUM_WORKERS \
   --user=$USER --group=$GROUP \
