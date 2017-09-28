@@ -30,7 +30,19 @@ function makeRxActInteractionCall(requestJson, callback) {
     xhttp.setRequestHeader('X-CSRFToken', getCSRFToken());
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            callback(JSON.parse(xhttp.responseText));
+            let jsonResp = JSON.parse(xhttp.responseText)
+            if (jsonResp.data != undefined && jsonResp.errors == undefined) {
+                callback(jsonResp.data.drugInteractions);
+            } else if (jsonResp.errors != undefined) {
+                let fullError = [
+                    'An error occurred while querying the RxAct interaction API:\n'
+                ];
+                Array.prototype.forEach.call(jsonResp.errors, function(error) {
+                    fullError.push(error['message'] + '\n');
+                });
+
+                Logger.error(fullError.join(''));
+            }
         }
     }
     xhttp.send(requestJson);

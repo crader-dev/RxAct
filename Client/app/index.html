@@ -12,12 +12,11 @@
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
-    <script src "util/simple-logger.js"></script>
+    <script src="util/simple-logger.js"></script>
     <script src="util/simple-router.js"></script>
     <script src="util/rxact-api-caller.js"></script>
-    <script src="components/drug-graph.js"></script>
     <script src="components/drug-list-modal.js" defer></script>
-    <script src="components/drug-graph.js" defer></script>
+    <script src="components/interaction-graph.js" defer></script>
     <script src="app-init.js" defer></script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous" defer></script>
@@ -50,7 +49,9 @@
             </ul>
 
             <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2" id="visArea">
-                
+                <svg id="visSvg">
+
+                </svg>
             </div>
         </div>
     </div>
